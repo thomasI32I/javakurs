@@ -105,6 +105,7 @@ public class AktuelleUebung
         System.out.println( "Trimmen: --->" + trimmen( "     C o mpute    r         " ) + "<---" );
         System.out.println( "int2String: " + int2String( 123 ) );
         System.out.println( "String2int: " + String2int( "12345" ) * 2 );
+        // Hallo
     }
 
 }

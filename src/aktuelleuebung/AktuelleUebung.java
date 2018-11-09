@@ -7,18 +7,16 @@ public class AktuelleUebung
 
     public static void main( String[] args )
     {
-
         lottozahlen();
-
     }
 
     private static void lottozahlen()
     {
-        int[] zahlen = new int[ 6 ];
+        int[] zahlen = new int[ 6 ]; // gezogene Zahlen
         int[] reihenfolge =
         {
             50, 50, 50, 50, 50, 50
-        };
+        }; // Zahlen in aufsteigender Reihenfolge
         int pos = -1;
         int neueZahl;
 
@@ -37,10 +35,12 @@ public class AktuelleUebung
             for ( int j = 0; j < 6; j++ )
                 if ( zahlen[ j ] < reihenfolge[ i ] )
                 {
+                    // Gehe alle Zahlen durch und schiebe die Zahl nach reihenfolge, 
+                    // wenn Zahl kleiner ist als die bisherige Zahl in reihenfolge
                     reihenfolge[ i ] = zahlen[ j ];
                     pos = j;
                 }
-            zahlen[ pos ] = 50;
+            zahlen[ pos ] = 50; // entferne die Zahl aus zahlen, bzw. setzte sie extrem hoch
         }
 
         for ( int i = 0; i < 6; i++ )

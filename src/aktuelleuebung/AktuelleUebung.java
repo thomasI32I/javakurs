@@ -13,11 +13,6 @@ public class AktuelleUebung
     private static void lottozahlen()
     {
         int[] zahlen = new int[ 6 ]; // gezogene Zahlen
-        int[] reihenfolge =
-        {
-            50, 50, 50, 50, 50, 50
-        }; // Zahlen in aufsteigender Reihenfolge
-        int pos = -1;
         int neueZahl;
 
         for ( int i = 0; i < 6; i++ )
@@ -30,21 +25,10 @@ public class AktuelleUebung
             zahlen[ i ] = neueZahl;
         }
 
-        for ( int i = 0; i < 6; i++ )
-        {
-            for ( int j = 0; j < 6; j++ )
-                if ( zahlen[ j ] < reihenfolge[ i ] )
-                {
-                    // Gehe alle Zahlen durch und schiebe die Zahl nach reihenfolge, 
-                    // wenn Zahl kleiner ist als die bisherige Zahl in reihenfolge
-                    reihenfolge[ i ] = zahlen[ j ];
-                    pos = j;
-                }
-            zahlen[ pos ] = 50; // entferne die Zahl aus zahlen, bzw. setzte sie extrem hoch
-        }
+        bubbleSort( zahlen );
 
         for ( int i = 0; i < 6; i++ )
-            System.out.print( reihenfolge[ i ] + " " );
+            System.out.print( zahlen[ i ] + " " );
     }
 
     private static boolean vorhanden( int neueZahl, int[] zahlen )
@@ -53,6 +37,34 @@ public class AktuelleUebung
             if ( neueZahl == zahlen[ i ] )
                 return true;
         return false;
+    }
+
+    private static int[] bubbleSort( int[] zahlen )
+    {
+        boolean swapped;
+        int zwischenspeicher;
+        int n = zahlen.length;
+        do
+        {
+            swapped = false;
+            for ( int i = 0; i < n - 1; i++ )
+                if ( zahlen[ i ] > zahlen[ i + 1 ] )
+                {
+                    zahlen = vertausche( zahlen, i, i + 1 );
+                    swapped = true;
+                }
+            n--;
+        } while ( swapped );
+
+        return zahlen;
+    }
+
+    private static int[] vertausche( int[] zahlen, int a, int b )
+    {
+        int zwischenspeicher = zahlen[ a ];
+        zahlen[ a ] = zahlen[ b ];
+        zahlen[ b ] = zwischenspeicher;
+        return zahlen;
     }
 
 }

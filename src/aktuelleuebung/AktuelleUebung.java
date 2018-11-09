@@ -7,52 +7,52 @@ public class AktuelleUebung
 
     public static void main( String[] args )
     {
-        System.out.print( "Bitte geben Sie eine Zahl: " );
-        Scanner sc = new Scanner( System.in );
-        int i = sc.nextInt();
 
-        System.out.println( hexadezimal( i ) );
-        System.out.println( Integer.toHexString( i ) );
+        lottozahlen();
 
-        System.out.println( binaer( i ) );
-        System.out.println( Integer.toBinaryString( i ) );
     }
 
-    private static String binaer( int i )
+    private static void lottozahlen()
     {
-        String zahl = "", ziffer = "";
-        boolean firstNonZero = false;
-
-        int gt = 4096;
-        while ( gt > 0 )
+        int[] zahlen = new int[ 6 ];
+        int[] reihenfolge =
         {
-            ziffer = Integer.toString( i / gt );
+            50, 50, 50, 50, 50, 50
+        };
+        int pos = -1;
+        int neueZahl;
 
-            i -= gt * ( i / gt );
-            gt /= 2;
+        for ( int i = 0; i < 6; i++ )
+        {
+            do
+            {
+                neueZahl = ( int ) ( Math.random() * 49 ) + 1;
+            } while ( vorhanden( neueZahl, zahlen ) );
 
-            if ( ziffer.equals( "1" ) )
-                firstNonZero = true;
-            if ( firstNonZero )
-                zahl += ziffer;
+            zahlen[ i ] = neueZahl;
         }
-        return zahl;
 
+        for ( int i = 0; i < 6; i++ )
+        {
+            for ( int j = 0; j < 6; j++ )
+                if ( zahlen[ j ] < reihenfolge[ i ] )
+                {
+                    reihenfolge[ i ] = zahlen[ j ];
+                    pos = j;
+                }
+            zahlen[ pos ] = 50;
+        }
+
+        for ( int i = 0; i < 6; i++ )
+            System.out.print( reihenfolge[ i ] + " " );
     }
 
-    private static String hexadezimal( int i )
+    private static boolean vorhanden( int neueZahl, int[] zahlen )
     {
-        String zahl = "";
-        char[] hexZiffern = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
-        int gt = 4096;
-        while ( gt > 0 )
-        {           
-            zahl += hexZiffern[ i / gt ];
-            i -= gt * ( i / gt );
-            gt /= 16;     
-        }
-        return zahl;
-
+        for ( int i = 0; i < zahlen.length; i++ )
+            if ( neueZahl == zahlen[ i ] )
+                return true;
+        return false;
     }
 
 }
